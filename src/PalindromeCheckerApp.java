@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * Use Case 3: Reverse String Based Palindrome Check
+ * User Input Version
+ */
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
@@ -9,21 +14,20 @@ public class PalindromeCheckerApp {
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
-        // Optional: make it case-insensitive
+        // Optional: make case-insensitive
         input = input.toLowerCase();
 
-        boolean isPalindrome = true;
+        String reversed = "";
 
-        // Loop until half of the string length
-        for (int i = 0; i < input.length() / 2; i++) {
-
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
+        // Reverse the string
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed += input.charAt(i);
         }
 
-        System.out.println("Input text: " + input);
+        boolean isPalindrome = input.equals(reversed);
+
+        System.out.println("Original text : " + input);
+        System.out.println("Reversed text : " + reversed);
         System.out.println("Is it a Palindrome? : " + isPalindrome);
 
         scanner.close();
