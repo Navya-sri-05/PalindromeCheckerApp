@@ -1,35 +1,40 @@
 import java.util.Scanner;
 
-/**
- * Use Case 3: Reverse String Based Palindrome Check
- * User Input Version
- */
-
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Create Scanner object
+        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter text: ");
-        String input = scanner.nextLine();
+        // Take input from user
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
 
-        // Optional: make case-insensitive
-        input = input.toLowerCase();
+        // Convert string to character array
+        char[] chars = input.toCharArray();
 
-        String reversed = "";
+        // Initialize pointers
+        int start = 0;
+        int end = chars.length - 1;
 
-        // Reverse the string
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed += input.charAt(i);
+        // Assume palindrome initially
+        boolean isPalindrome = true;
+
+        // Compare characters
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
 
-        boolean isPalindrome = input.equals(reversed);
+        // Display result
+        System.out.println("Is Palindrome? = " + isPalindrome);
 
-        System.out.println("Original text : " + input);
-        System.out.println("Reversed text : " + reversed);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
-
-        scanner.close();
+        // Close scanner
+        sc.close();
     }
 }
