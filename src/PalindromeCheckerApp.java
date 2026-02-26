@@ -1,31 +1,37 @@
 import java.util.Scanner;
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        // Create Scanner object
+        // Create Scanner
         Scanner sc = new Scanner(System.in);
 
         // Take input from user
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        // Create a Stack to store characters
+        // Create Queue (FIFO)
+        Queue<Character> queue = new LinkedList<>();
+
+        // Create Stack (LIFO)
         Stack<Character> stack = new Stack<>();
 
-        // Push each character into the stack
+        // Insert characters into both queue and stack
         for (char c : input.toCharArray()) {
-            stack.push(c);
+            queue.add(c);     // FIFO
+            stack.push(c);    // LIFO
         }
 
         // Assume palindrome initially
         boolean isPalindrome = true;
 
-        // Compare original string with stack (reverse order)
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+        // Compare until queue becomes empty
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
@@ -34,7 +40,6 @@ public class PalindromeCheckerApp {
         // Display result
         System.out.println("Is Palindrome? = " + isPalindrome);
 
-        // Close scanner
         sc.close();
     }
 }
