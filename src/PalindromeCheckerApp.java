@@ -5,51 +5,38 @@ public class PalindromeCheckerApp {
         // Define input
         String input = "level";
 
-        // Inject strategy
-        PalindromeStrategy strategy = new StackStrategy();
+        // Start time
+        long startTime = System.nanoTime();
 
-        boolean result = strategy.check(input);
+        // Palindrome check
+        boolean isPalindrome = checkPalindrome(input);
+
+        // End time
+        long endTime = System.nanoTime();
+
+        // Calculate execution time
+        long executionTime = endTime - startTime;
 
         System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
+        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Execution Time : " + executionTime + " ns");
     }
-}
 
 
-/* ======================================================
-   INTERFACE : PalindromeStrategy
-   Defines contract for palindrome algorithms
-   ====================================================== */
+    // Simple palindrome algorithm
+    public static boolean checkPalindrome(String input) {
 
-interface PalindromeStrategy {
+        int start = 0;
+        int end = input.length() - 1;
 
-    boolean check(String input);
-}
+        while (start < end) {
 
-
-/* ======================================================
-   CLASS : StackStrategy
-   Stack based palindrome algorithm
-   ====================================================== */
-
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
-
-        // Create stack
-        java.util.Stack<Character> stack = new java.util.Stack<>();
-
-        // Push characters
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-
-        // Compare characters
-        for (char c : input.toCharArray()) {
-
-            if (c != stack.pop()) {
+            if (input.charAt(start) != input.charAt(end)) {
                 return false;
             }
+
+            start++;
+            end--;
         }
 
         return true;
