@@ -2,14 +2,13 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        // Define input string
-        String input = "racecar";
+        // Define input
+        String input = "level";
 
-        // Create service object
-        PalindromeService service = new PalindromeService();
+        // Inject strategy
+        PalindromeStrategy strategy = new StackStrategy();
 
-        // Call service method
-        boolean result = service.checkPalindrome(input);
+        boolean result = strategy.check(input);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
@@ -17,24 +16,40 @@ public class PalindromeCheckerApp {
 }
 
 
-// Service class that contains palindrome logic
-class PalindromeService {
+/* ======================================================
+   INTERFACE : PalindromeStrategy
+   Defines contract for palindrome algorithms
+   ====================================================== */
 
-    public boolean checkPalindrome(String input) {
+interface PalindromeStrategy {
 
-        // Initialize pointers
-        int start = 0;
-        int end = input.length() - 1;
+    boolean check(String input);
+}
 
-        // Compare characters inward
-        while (start < end) {
 
-            if (input.charAt(start) != input.charAt(end)) {
+/* ======================================================
+   CLASS : StackStrategy
+   Stack based palindrome algorithm
+   ====================================================== */
+
+class StackStrategy implements PalindromeStrategy {
+
+    public boolean check(String input) {
+
+        // Create stack
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+
+        // Push characters
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        // Compare characters
+        for (char c : input.toCharArray()) {
+
+            if (c != stack.pop()) {
                 return false;
             }
-
-            start++;
-            end--;
         }
 
         return true;
